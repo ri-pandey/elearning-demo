@@ -8,6 +8,7 @@ export const QuestionSet = ({questions}) => {
 
   const currentQuestion = questions[currentQuestionIndex]
   const isAtFirstQuestion = currentQuestionIndex === 0
+  const isAtLastQuestion = currentQuestionIndex === questions.length - 1
 
   return <>
     <Question question={currentQuestion} questionIndex={currentQuestionIndex}/>
@@ -28,7 +29,7 @@ export const QuestionSet = ({questions}) => {
           type={"button"}
           onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}>
           {
-            currentQuestionIndex === questions.length - 1 ? "Submit" : "Next"
+            isAtLastQuestion ? "Submit" : "Next"
           }
         </Button>
       </Col>
