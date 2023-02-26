@@ -4,3 +4,11 @@ footer {
     left: 0;
     width: 100%;
 }
+
+.align-content-right {
+    text-align: right;
+}
+
+.margin-top-none {
+    margin-top: 0;
+}
