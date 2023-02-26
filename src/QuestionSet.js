@@ -13,6 +13,7 @@ export const QuestionSet = ({questions}) => {
     <Row padding={{top: "md"}}>
       <Col md={6}>
         <Button
+          type={"button"}
           disabled={currentQuestionIndex === 0}
           onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
         >
@@ -21,6 +22,7 @@ export const QuestionSet = ({questions}) => {
       </Col>
       <Col md={6} className={"align-content-right"}>
         <Button
+          type={"button"}
           onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}>
           {
             currentQuestionIndex === questions.length - 1 ? "Submit" : "Next"
