@@ -3,7 +3,7 @@ import {useState} from "react";
 import {Button, Col, Row} from "rivet-react";
 import * as React from "react";
 
-export const QuestionSet = ({questions}) => {
+export const QuestionSet = ({questions, recordResponse}) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
 
   const currentQuestion = questions[currentQuestionIndex]
@@ -11,7 +11,11 @@ export const QuestionSet = ({questions}) => {
   const isAtLastQuestion = currentQuestionIndex === questions.length - 1
 
   return <>
-    <Question question={currentQuestion} questionIndex={currentQuestionIndex}/>
+    <Question
+      questions={questions}
+      questionIndex={currentQuestionIndex}
+      recordResponse={recordResponse}
+    />
     <Row padding={{top: "md"}}>
       {
         !isAtFirstQuestion &&
@@ -27,10 +31,10 @@ export const QuestionSet = ({questions}) => {
       <Col md={isAtFirstQuestion ? 12 : 6} className={"align-content-right"}>
         <Button
           type={"button"}
-          onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}>
-          {
-            isAtLastQuestion ? "Submit" : "Next"
-          }
+          onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
+          // onClick={() => submitResponse(selectedOptions)}
+        >
+          Submit
         </Button>
       </Col>
     </Row>

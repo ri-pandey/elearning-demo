@@ -4,7 +4,7 @@ import {Question} from "./Question";
 import {QuestionSet} from "./QuestionSet";
 import {useState} from "react";
 
-const questions = [{
+const quizQuestions = [{
   text: "Here is the text of Question 1",
   options: [{
     label: "Text for Answer 1.1"
@@ -30,6 +30,7 @@ const questions = [{
 
 function App() {
   const [hasStarted, setHasStarted] = useState(false)
+  const [questions, recordResponse] = useState(quizQuestions)
 
   return (
     <div>
@@ -49,7 +50,10 @@ function App() {
                 </Button>
               </Panel>
             :
-            <QuestionSet questions={questions}/>
+            <QuestionSet
+              questions={questions}
+              recordResponse={recordResponse}
+            />
         }
         </Container>
       </Container>
