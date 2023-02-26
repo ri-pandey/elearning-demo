@@ -5,26 +5,52 @@ import {QuestionSet} from "./QuestionSet";
 import {useState} from "react";
 
 const quizQuestions = [{
+  id: 1,
   text: "Here is the text of Question 1",
   options: [{
-    label: "Text for Answer 1.1"
+    id: 11,
+    text: "Text for Answer 1.1"
   }, {
-    label: "Text for Answer 1.2"
+    id: 12,
+    text: "Text for Answer 1.2"
   }, {
-    label: "Text for Answer 1.3"
+    id: 13,
+    text: "Text for Answer 1.3"
   }, {
-    label: "Text for Answer 1.4"
+    id: 14,
+    text: "Text for Answer 1.4"
   }]
 }, {
+  id: 2,
   text: "Here is the text of Question 2",
   options: [{
-    label: "Text for Answer 2.1"
+    id: 21,
+    text: "Text for Answer 2.1"
   }, {
-    label: "Text for Answer 2.2"
+    id: 22,
+    text: "Text for Answer 2.2"
   }, {
-    label: "Text for Answer 2.3"
+    id: 23,
+    text: "Text for Answer 2.3"
   }, {
-    label: "Text for Answer 2.4"
+    id: 24,
+    text: "Text for Answer 2.4"
+  }]
+}, {
+  id: 3,
+  text: "Here is the text of Question 3",
+  options: [{
+    id: 31,
+    text: "Text for Answer 3.1"
+  }, {
+    id: 32,
+    text: "Text for Answer 3.2"
+  }, {
+    id: 33,
+    text: "Text for Answer 3.3"
+  }, {
+    id: 34,
+    text: "Text for Answer 3.4"
   }]
 }]
 

@@ -2,6 +2,7 @@ import {Question} from "./Question";
 import {useState} from "react";
 import {Button, Col, Row} from "rivet-react";
 import * as React from "react";
+import {submitResponse} from "./util";
 
 export const QuestionSet = ({questions, recordResponse}) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -31,8 +32,21 @@ export const QuestionSet = ({questions, recordResponse}) => {
       <Col md={isAtFirstQuestion ? 12 : 6} className={"align-content-right"}>
         <Button
           type={"button"}
-          onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
-          // onClick={() => submitResponse(selectedOptions)}
+          // onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}
+          onClick={() => {
+            const questionsCloned = _.cloneDeep(questions)
+            submitResponse(currentQuestion).then(() => {
+              questionsCloned[currentQuestionIndex].isAnsweredCorrectly = true
+              recordResponse(questionsCloned)
+              console.log("submission is correct")
+            }).catch(response => {
+              questionsCloned[currentQuestionIndex].isAnsweredCorrectly = false
+              questionsCloned[currentQuestionIndex].correctOptions = response
+              recordResponse(questionsCloned)
+              console.log("submission is not correct")
+              console.log(response)
+            })
+          }}
         >
           Submit
         </Button>
