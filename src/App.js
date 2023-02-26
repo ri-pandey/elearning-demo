@@ -2,6 +2,7 @@ import * as React from 'react'
 import {Alert, Button, Checkbox, Col, Container, DismissibleAlert, List, Panel, Row, Section} from "rivet-react";
 import {Question} from "./Question";
 import {QuestionSet} from "./QuestionSet";
+import {useState} from "react";
 
 const questions = [{
   text: "Here is the text of Question 1",
@@ -28,6 +29,8 @@ const questions = [{
 }]
 
 function App() {
+  const [hasStarted, setHasStarted] = useState(false)
+
   return (
     <div>
       <Container typescale={26} padding={"xxl"}>
@@ -35,7 +38,19 @@ function App() {
           <h1 className="rvt-ts-29 rvt-lh-title">Multiple Choice Assessment</h1>
         </div>
         <Container typescale={18} className={"rvt-p-all-remove"}>
-          <QuestionSet questions={questions}/>
+        {
+          !hasStarted ?
+              <Panel>
+                <p className={"margin-top-none"}>Here is some description of this Multiple Choice Assessment. Here is some description of this Multiple Choice Assessment. Here is some description of this Multiple Choice Assessment. Here is some description of this Multiple Choice Assessment.</p>
+                <Button
+                  type={"button"}
+                  onClick={() => {setHasStarted(true)}}
+                >Start Quiz
+                </Button>
+              </Panel>
+            :
+            <QuestionSet questions={questions}/>
+        }
         </Container>
       </Container>
     </div>
