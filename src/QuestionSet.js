@@ -7,20 +7,23 @@ export const QuestionSet = ({questions}) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
 
   const currentQuestion = questions[currentQuestionIndex]
+  const isAtFirstQuestion = currentQuestionIndex === 0
 
   return <>
     <Question question={currentQuestion} questionIndex={currentQuestionIndex}/>
     <Row padding={{top: "md"}}>
-      <Col md={6}>
+      {
+        !isAtFirstQuestion &&
+        <Col md={6}>
         <Button
           type={"button"}
-          disabled={currentQuestionIndex === 0}
           onClick={() => setCurrentQuestionIndex(currentQuestionIndex - 1)}
         >
           Previous
         </Button>
-      </Col>
-      <Col md={6} className={"align-content-right"}>
+        </Col>
+      }
+      <Col md={isAtFirstQuestion ? 12 : 6} className={"align-content-right"}>
         <Button
           type={"button"}
           onClick={() => setCurrentQuestionIndex(currentQuestionIndex + 1)}>
