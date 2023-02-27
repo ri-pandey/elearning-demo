@@ -1,16 +1,17 @@
-import {Button, Checkbox, Col, List, Panel, Row} from "rivet-react";
+import {Alert, Button, Checkbox, Col, List, Panel, Row} from "rivet-react";
 import * as React from "react";
 import _ from "lodash"
 
 export const Question = ({questions, questionIndex, recordResponse}) => {
   const question = questions[questionIndex]
+  const questionIsAnswered = question.isAnsweredCorrectly || (question.correctOptions && question.correctOptions.length > 0)
 
-  const displayCorrectOptions = question => {
+  const getCorrectOptionsListItems = () => {
     if (!question.correctOptions) {
       return;
     }
     const correctOptions = question.options.filter(e => question.correctOptions.includes(e.id))
-    return correctOptions.map(e => e.text)
+    return correctOptions.map((e, i) => <li key={"correct-option-" + i}>{e.text}</li>)
   }
 
   return <Panel>
@@ -40,6 +41,24 @@ export const Question = ({questions, questionIndex, recordResponse}) => {
         </List>
       </fieldset>
     </Panel>
-    <p>{question.isAnsweredCorrectly ? "Correct" : displayCorrectOptions(question)}</p>
+    {
+      questionIsAnswered &&
+      <div className={"rvt-m-top-lg"}>
+        <Alert
+            variant={question.isAnsweredCorrectly ? "success" : "danger"}
+            title={question.isAnsweredCorrectly ? "Correct" : "Incorrect"}
+          >
+          {
+            !question.isAnsweredCorrectly &&
+            <>
+              <p className={"rvt-m-all-remove"}>Correct choices are:</p>
+              <List>
+                {getCorrectOptionsListItems()}
+              </List>
+            </>
+          }
+        </Alert>
+      </div>
+    }
   </Panel>
 }
