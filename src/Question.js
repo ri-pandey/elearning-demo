@@ -37,51 +37,51 @@ export const Question = ({questions, questionIndex, recordResponse, setCurrentQu
 
   return <>
     <Panel>
-    <div className="rvt-text-bold">
-      <p className={"margin-top-none"}>
-        Question {questionIndex + 1}
-      </p>
-    </div>
-    <p>{question.text}</p>
-    <Panel variant={"light"}>
-      <fieldset>
-        <legend className="rvt-sr-only">Options List</legend>
-        <List variant="plain">
-          {
-            question.options.map((e, i) => <Checkbox
-              key={"option-" + i}
-              name="option" label={e.text}
-              checked={!!question.options[i].selected}
-              onChange={e => {
-                let questionsCloned = _.cloneDeep(questions)
-                let questionCloned = questionsCloned[questionIndex]
-                questionCloned.options[i]["selected"] = e.target.checked
-                recordResponse(questionsCloned)
-              }}
-            />)
-          }
-        </List>
-      </fieldset>
-    </Panel>
-    {
-      answerIsValidated &&
-      <div className={"rvt-m-top-lg"}>
-        <Alert
-            variant={question.isAnsweredCorrectly ? "success" : "danger"}
-            title={question.isAnsweredCorrectly ? "Correct" : "Incorrect"}
-          >
-          {
-            !question.isAnsweredCorrectly &&
-            <>
-              <p className={"rvt-m-all-remove"}>Correct choices are:</p>
-              <List>
-                {getCorrectOptionsListItems()}
-              </List>
-            </>
-          }
-        </Alert>
+      <div className="rvt-text-bold">
+        <p className={"margin-top-none"}>
+          Question {questionIndex + 1}
+        </p>
       </div>
-    }
+      <p>{question.text}</p>
+      <Panel variant={"light"}>
+        <fieldset>
+          <legend className="rvt-sr-only">Options List</legend>
+          <List variant="plain">
+            {
+              question.options.map((e, i) => <Checkbox
+                key={"option-" + i}
+                name="option" label={e.text}
+                checked={!!question.options[i].selected}
+                onChange={e => {
+                  let questionsCloned = _.cloneDeep(questions)
+                  let questionCloned = questionsCloned[questionIndex]
+                  questionCloned.options[i]["selected"] = e.target.checked
+                  recordResponse(questionsCloned)
+                }}
+              />)
+            }
+          </List>
+        </fieldset>
+      </Panel>
+      {
+        answerIsValidated &&
+        <div className={"rvt-m-top-lg"}>
+          <Alert
+              variant={question.isAnsweredCorrectly ? "success" : "danger"}
+              title={question.isAnsweredCorrectly ? "Correct" : "Incorrect"}
+            >
+            {
+              !question.isAnsweredCorrectly &&
+              <>
+                <p className={"rvt-m-all-remove"}>Correct choices are:</p>
+                <List>
+                  {getCorrectOptionsListItems()}
+                </List>
+              </>
+            }
+          </Alert>
+        </div>
+      }
     </Panel>
     <Row padding={{top: "md"}}>
       {
