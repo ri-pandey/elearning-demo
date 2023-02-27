@@ -58,6 +58,7 @@ export const Question = ({questions, questionIndex, recordResponse, setCurrentQu
                   questionCloned.options[i]["selected"] = e.target.checked
                   recordResponse(questionsCloned)
                 }}
+                disabled={answerIsValidated}
               />)
             }
           </List>
