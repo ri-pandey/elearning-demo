@@ -1,10 +1,13 @@
 import {Alert, Button, Checkbox, Col, List, Panel, Row} from "rivet-react";
 import * as React from "react";
 import _ from "lodash"
+import {submitResponse} from "./util";
 
-export const Question = ({questions, questionIndex, recordResponse}) => {
+export const Question = ({questions, questionIndex, recordResponse, setCurrentQuestionIndex}) => {
   const question = questions[questionIndex]
-  const questionIsAnswered = question.isAnsweredCorrectly || (question.correctOptions && question.correctOptions.length > 0)
+  const answerIsValidated = question.isAnsweredCorrectly || (question.correctOptions && question.correctOptions.length > 0)
+
+  const isFirstQuestion = questionIndex === 0
 
   const getCorrectOptionsListItems = () => {
     if (!question.correctOptions) {
@@ -14,7 +17,26 @@ export const Question = ({questions, questionIndex, recordResponse}) => {
     return correctOptions.map((e, i) => <li key={"correct-option-" + i}>{e.text}</li>)
   }
 
-  return <Panel>
+  const submitAndValidate = () => {
+    const questionsCloned = _.cloneDeep(questions)
+    submitResponse(question).then(() => {
+      questionsCloned[questionIndex].isAnsweredCorrectly = true
+      recordResponse(questionsCloned)
+    }).catch(response => {
+      questionsCloned[questionIndex].isAnsweredCorrectly = false
+      questionsCloned[questionIndex].correctOptions = response
+      recordResponse(questionsCloned)
+    })
+  }
+
+  const gotoNextQuestion = () => {
+    if (questionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(questionIndex + 1)
+    }
+  }
+
+  return <>
+    <Panel>
     <div className="rvt-text-bold">
       <p className={"margin-top-none"}>
         Question {questionIndex + 1}
@@ -42,7 +64,7 @@ export const Question = ({questions, questionIndex, recordResponse}) => {
       </fieldset>
     </Panel>
     {
-      questionIsAnswered &&
+      answerIsValidated &&
       <div className={"rvt-m-top-lg"}>
         <Alert
             variant={question.isAnsweredCorrectly ? "success" : "danger"}
@@ -60,5 +82,29 @@ export const Question = ({questions, questionIndex, recordResponse}) => {
         </Alert>
       </div>
     }
-  </Panel>
+    </Panel>
+    <Row padding={{top: "md"}}>
+      {
+        !isFirstQuestion &&
+        <Col md={6}>
+          <Button
+            type={"button"}
+            onClick={() => setCurrentQuestionIndex(questionIndex - 1)}
+          >
+            Previous
+          </Button>
+        </Col>
+      }
+      <Col md={isFirstQuestion ? 12 : 6} className={"align-content-right"}>
+        <Button
+          type={"button"}
+          onClick={answerIsValidated ? gotoNextQuestion : submitAndValidate}
+        >
+          {
+            answerIsValidated ? "Next" : "Submit"
+          }
+        </Button>
+      </Col>
+    </Row>
+  </>
 }
