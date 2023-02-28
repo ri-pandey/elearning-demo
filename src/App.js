@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Alert, Button, Checkbox, Col, Container, DismissibleAlert, List, Panel, Row, Section} from "rivet-react";
+import {Button, Container, Panel} from "rivet-react";
 import {useState} from "react";
 import {STATUS} from "./util";
 import {quizQuestions} from "./data/data";

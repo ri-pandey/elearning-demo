@@ -1,4 +1,4 @@
-import {Alert, Button, Checkbox, Col, Container, List, Panel, Row} from "rivet-react";
+import {Alert, Button, Checkbox, Col, List, Panel, Row} from "rivet-react";
 import * as React from "react";
 import _ from "lodash"
 import {STATUS} from "./util";
