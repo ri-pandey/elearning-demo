@@ -3,8 +3,11 @@ import * as React from "react";
 import _ from "lodash"
 import {STATUS} from "./util";
 import {submitResponse} from "./data/api";
+import {useState} from "react";
 
-export const Question = ({questions, questionIndex, recordResponse, setCurrentQuestionIndex, setStatus}) => {
+export const Question = ({questions, recordResponse, setStatus}) => {
+  const [questionIndex, setQuestionIndex] = useState(0)
+
   const question = questions[questionIndex]
   const answerIsValidated = question.isAnsweredCorrectly || (question.correctOptions && question.correctOptions.length > 0)
 
@@ -42,7 +45,7 @@ export const Question = ({questions, questionIndex, recordResponse, setCurrentQu
 
   const gotoNextQuestion = () => {
     if (questionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(questionIndex + 1)
+      setQuestionIndex(questionIndex + 1)
     }
   }
 
@@ -99,7 +102,7 @@ export const Question = ({questions, questionIndex, recordResponse, setCurrentQu
         <Col md={6}>
           <Button
             type={"button"}
-            onClick={() => setCurrentQuestionIndex(questionIndex - 1)}
+            onClick={() => setQuestionIndex(questionIndex - 1)}
           >
             Previous
           </Button>

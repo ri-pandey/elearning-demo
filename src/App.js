@@ -1,10 +1,10 @@
 import * as React from 'react'
 import {Alert, Button, Checkbox, Col, Container, DismissibleAlert, List, Panel, Row, Section} from "rivet-react";
-import {QuestionSet} from "./QuestionSet";
 import {useState} from "react";
 import {STATUS} from "./util";
 import {quizQuestions} from "./data/data";
 import {Score} from "./Score";
+import {Question} from "./Question";
 
 const App = ({}) => {
   const [status, setStatus] = useState(STATUS.PRISTINE)
@@ -34,7 +34,7 @@ const App = ({}) => {
           }
           {
             status === STATUS.IN_PROGRESS &&
-            <QuestionSet
+            <Question
               questions={questions}
               recordResponse={recordResponse}
               setStatus={setStatus}
@@ -42,7 +42,7 @@ const App = ({}) => {
           }
           {
             status === STATUS.FINISHED &&
-              <Score questions={questions}></Score>
+            <Score questions={questions}></Score>
           }
         </Container>
       </Container>
