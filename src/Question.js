@@ -1,31 +1,42 @@
-import {Alert, Button, Checkbox, Col, List, Panel, Row} from "rivet-react";
+import {Alert, Button, Checkbox, Col, Container, List, Panel, Row} from "rivet-react";
 import * as React from "react";
 import _ from "lodash"
-import {submitResponse} from "./util";
+import {STATUS} from "./util";
+import {submitResponse} from "./data/api";
 
-export const Question = ({questions, questionIndex, recordResponse, setCurrentQuestionIndex}) => {
+export const Question = ({questions, questionIndex, recordResponse, setCurrentQuestionIndex, setStatus}) => {
   const question = questions[questionIndex]
   const answerIsValidated = question.isAnsweredCorrectly || (question.correctOptions && question.correctOptions.length > 0)
 
   const isFirstQuestion = questionIndex === 0
+  const isLastQuestion = questionIndex === questions.length - 1
 
-  const getCorrectOptionsListItems = () => {
+  const displayCorrectOptions = () => {
     if (!question.correctOptions) {
       return;
     }
     const correctOptions = question.options.filter(e => question.correctOptions.includes(e.id))
-    return correctOptions.map((e, i) => <li key={"correct-option-" + i}>{e.text}</li>)
+    return correctOptions.map((e, i) => (
+      <React.Fragment key={"correct-option-" + i}>
+        <span className={"rvt-m-left-md"}>{"- " + e.text}</span>
+        {i < correctOptions.length - 1 && <br/>}
+      </React.Fragment>
+      )
+    )
   }
 
-  const submitAndValidate = () => {
+  const validateResponse = () => {
     const questionsCloned = _.cloneDeep(questions)
     submitResponse(question).then(() => {
       questionsCloned[questionIndex].isAnsweredCorrectly = true
-      recordResponse(questionsCloned)
     }).catch(response => {
       questionsCloned[questionIndex].isAnsweredCorrectly = false
       questionsCloned[questionIndex].correctOptions = response
+    }).finally(() => {
       recordResponse(questionsCloned)
+      if (isLastQuestion) {
+        setStatus(STATUS.FINISHED)
+      }
     })
   }
 
@@ -74,10 +85,8 @@ export const Question = ({questions, questionIndex, recordResponse, setCurrentQu
             {
               !question.isAnsweredCorrectly &&
               <>
-                <p className={"rvt-m-all-remove"}>Correct choices are:</p>
-                <List>
-                  {getCorrectOptionsListItems()}
-                </List>
+                <span className={"rvt-m-all-remove"}>Correct choices are:<br/></span>
+                {displayCorrectOptions()}
               </>
             }
           </Alert>
@@ -99,7 +108,7 @@ export const Question = ({questions, questionIndex, recordResponse, setCurrentQu
       <Col md={isFirstQuestion ? 12 : 6} className={"align-content-right"}>
         <Button
           type={"button"}
-          onClick={answerIsValidated ? gotoNextQuestion : submitAndValidate}
+          onClick={answerIsValidated ? gotoNextQuestion : validateResponse}
         >
           {
             answerIsValidated ? "Next" : "Submit"
