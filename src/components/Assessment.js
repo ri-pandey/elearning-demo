@@ -9,7 +9,7 @@ import StartAssessment from "./StartAssessment";
 import {connect} from "react-redux";
 import {setStatus} from "../redux/actions";
 
-const Assessment = ({status, setCurrentStatus}) => {
+const Assessment = ({status, questionsLength, setCurrentStatus}) => {
   const [questions, recordResponse] = useState(quizQuestions)
 
   return (
@@ -18,7 +18,6 @@ const Assessment = ({status, setCurrentStatus}) => {
 
         {/*<div className={"rvt-m-bottom-sm"}>*/}
         {/*  <h1 className="rvt-ts-29 rvt-lh-title">{status}</h1>*/}
-        {/*  <Button onClick={setCurrentStatus}>test</Button>*/}
         {/*</div>*/}
 
         <div className={"rvt-m-bottom-sm"}>

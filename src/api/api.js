@@ -1,5 +1,11 @@
-import {questionsWithCorrectOptions} from "./data";
+import {questionsWithCorrectOptions, quizQuestions} from "./data";
 import {arraysAreEqual} from "../util";
+
+export const fetchQuestions = () => {
+  return new Promise((resolve) => {
+    resolve(quizQuestions)
+  })
+}
 
 export const submitResponse = (question) => {
   return new Promise((resolve, reject) => {

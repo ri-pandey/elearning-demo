@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
 import {STATUS} from "../../util";
-import {SET_STATUS} from "../actionTypes";
+import {SET_QUESTIONS, SET_STATUS} from "../actionTypes";
 
 const initialState = {
-  status: STATUS.PRISTINE
+  status: STATUS.PRISTINE,
+  questions: []
 }
 
 export default (state = initialState, action) => {
@@ -13,6 +13,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         status: newStatus
+      }
+    case SET_QUESTIONS:
+      const questions = action.payload
+      return {
+        ...state,
+        questions
       }
     default:
       return state
