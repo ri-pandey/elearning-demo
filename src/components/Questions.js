@@ -25,7 +25,7 @@ const Questions = ({questions}) => {
     }
   }
 
-  return <>
+  return <form>
     <Panel>
       <div className="rvt-text-bold">
         <p className={"margin-top-none"}>
@@ -62,7 +62,7 @@ const Questions = ({questions}) => {
       gotoPreviousQuestion={gotoPreviousQuestion}
       setNoOptionsSelectedAlertVisible={setNoOptionsSelectedAlertVisible}
     />
-  </>
+  </form>
 }
 
 const mapStateToProps = (state) => {
