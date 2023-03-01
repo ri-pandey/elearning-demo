@@ -5,6 +5,7 @@ import {STATUS} from "./util";
 import {quizQuestions} from "./data/data";
 import {Score} from "./Score";
 import {Question} from "./Question";
+import {StartAssessment} from "./StartAssessment";
 
 const Assessment = ({}) => {
   const [status, setStatus] = useState(STATUS.PRISTINE)
@@ -19,18 +20,7 @@ const Assessment = ({}) => {
         <Container typescale={18} className={"rvt-p-all-remove"}>
           {
             status === STATUS.PRISTINE &&
-            <Panel>
-              <p className={"margin-top-none"}>Here is some description of this Multiple Choice Assessment. Here is some
-                description of this Multiple Choice Assessment. Here is some description of this Multiple Choice
-                Assessment. Here is some description of this Multiple Choice Assessment.</p>
-              <Button
-                type={"button"}
-                onClick={() => {
-                  setStatus(STATUS.IN_PROGRESS)
-                }}
-              >Start Quiz
-              </Button>
-            </Panel>
+            <StartAssessment setStatus={setStatus}/>
           }
           {
             status === STATUS.IN_PROGRESS &&
