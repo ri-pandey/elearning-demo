@@ -1,4 +1,4 @@
-import {Alert, Button, Checkbox, Col, List, Panel, Row} from "rivet-react";
+import {Alert, Button, Checkbox, Col, InlineAlert, List, Panel, Row} from "rivet-react";
 import * as React from "react";
 import {useState} from "react";
 import {ValidationResult} from "./ValidationResult";
@@ -49,7 +49,7 @@ const Questions = ({questions}) => {
       {
         noOptionsSelectedAlertVisible &&
         <div className={"rvt-m-top-lg rvt-m-bottom-xxs"}>
-          <Alert variant={"info"}>Please make a choice before continuing</Alert>
+          <InlineAlert variant={"warning"} standalone>Please make a choice before continuing</InlineAlert>
         </div>
       }
     </Panel>
