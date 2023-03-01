@@ -3,7 +3,7 @@ import Assessment from "./components/Assessment";
 
 export const App = ({}) => {
   return <>
-    <Header title={"eLearning Demo"}/>
+    <Header title={"eLearning Development Demo"}/>
     <Assessment/>
     <Footer/>
   </>
