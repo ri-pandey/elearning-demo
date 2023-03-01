@@ -1,36 +1,38 @@
-import { Alert } from "rivet-react";
+import { Alert, Badge, InlineAlert } from "rivet-react";
 import * as React from "react";
 
-export const ValidationResult = ({ question }) => {
-  const displayCorrectOptions = () => {
-    if (!question.correctOptions) {
-      return;
-    }
-    const correctOptions = question.options.filter((e) =>
-      question.correctOptions.includes(e.id)
-    );
-    return correctOptions.map((option, i) => (
-      <React.Fragment key={"correct-option-" + i}>
-        <span className={"rvt-m-left-md"}>{"- " + option.text}</span>
-        {i < correctOptions.length - 1 && <br />}
-      </React.Fragment>
-    ));
-  };
+const CorrectOptions = ({ question }) => {
+  if (!question.correctOptions) {
+    return;
+  }
+  const correctOptions = question.options.filter((option) =>
+    question.correctOptions.includes(option.id)
+  );
+  return correctOptions.map((option, i) => (
+    <React.Fragment key={"correct-option-" + i}>
+      <span className={"rvt-m-left-md"}>{"- " + option.text}</span>
+      {i < correctOptions.length - 1 && <br />}
+    </React.Fragment>
+  ));
+};
 
+export const ValidationResult = ({ question }) => {
   return (
-    <Alert
-      variant={question.isAnsweredCorrectly ? "success" : "danger"}
-      title={question.isAnsweredCorrectly ? "Correct" : "Incorrect"}
-    >
+    <>
+      <Badge variant={question.isAnsweredCorrectly ? "success" : "danger"}>
+        {question.isAnsweredCorrectly ? "Correct" : "Incorrect"}
+      </Badge>
       {!question.isAnsweredCorrectly && (
-        <>
-          <span className={"rvt-m-all-remove"}>
-            Correct choices are:
-            <br />
-          </span>
-          {displayCorrectOptions()}
-        </>
+        <div className={"rvt-m-top-xs"}>
+          <Alert variant={question.isAnsweredCorrectly ? "success" : "danger"}>
+            <span className={"rvt-m-all-remove"}>
+              Correct choices are:
+              <br />
+            </span>
+            <CorrectOptions question={question} />
+          </Alert>
+        </div>
       )}
-    </Alert>
+    </>
   );
 };
