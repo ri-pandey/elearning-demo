@@ -2,7 +2,7 @@ import {Alert, Button, Checkbox, Col, List, Panel, Row} from "rivet-react";
 import * as React from "react";
 import _ from "lodash"
 import {STATUS} from "../util";
-import {submitResponse} from "../data/api";
+import {submitResponse} from "../api/api";
 import {useState} from "react";
 import {SubmissionResult} from "./SubmissionResult";
 import {Options} from "./Options";

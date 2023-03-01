@@ -1,7 +1,7 @@
 import {Button, Col, Row} from "rivet-react";
 import * as React from "react";
 import _ from "lodash";
-import {submitResponse} from "../data/api";
+import {submitResponse} from "../api/api";
 import {STATUS} from "../util";
 
 export const Buttons = ({questions, questionIndex, answerIsValidated, gotoNextQuestion,

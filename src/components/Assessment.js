@@ -2,7 +2,7 @@ import * as React from 'react'
 import {Button, Container, Panel} from "rivet-react";
 import {useState} from "react";
 import {STATUS} from "../util";
-import {quizQuestions} from "../data/data";
+import {quizQuestions} from "../api/data";
 import {Score} from "./Score";
 import {Question} from "./Question";
 import {StartAssessment} from "./StartAssessment";
