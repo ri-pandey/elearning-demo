@@ -1,19 +1,27 @@
 import * as React from 'react'
-import {Button, Container, Panel} from "rivet-react";
+import {Button, Container} from "rivet-react";
 import {useState} from "react";
 import {STATUS} from "../util";
 import {quizQuestions} from "../api/data";
 import {Score} from "./Score";
 import {Question} from "./Question";
 import {StartAssessment} from "./StartAssessment";
+import {connect} from "react-redux";
+import {setStatus} from "../redux/actions";
 
-const Assessment = ({}) => {
+const Assessment = ({currentStatus, setCurrentStatus}) => {
   const [status, setStatus] = useState(STATUS.PRISTINE)
   const [questions, recordResponse] = useState(quizQuestions)
 
   return (
     <div>
       <Container typescale={26} padding={"xxl"}>
+
+        <div className={"rvt-m-bottom-sm"}>
+          <h1 className="rvt-ts-29 rvt-lh-title">{currentStatus}</h1>
+          <Button onClick={setCurrentStatus}>test</Button>
+        </div>
+
         <div className={"rvt-m-bottom-sm"}>
           <h1 className="rvt-ts-29 rvt-lh-title">Multiple Choice Assessment</h1>
         </div>
@@ -40,4 +48,18 @@ const Assessment = ({}) => {
   );
 }
 
-export default Assessment;
+const mapStateToProps = (state) => {
+  return {
+    currentStatus: state.assessment.status
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentStatus: (status) => {
+      dispatch(setStatus("ho ho ho"))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Assessment);
