@@ -1,19 +1,24 @@
 import _ from "lodash"
 import {STATUS} from "../../util";
-import {SET_QUESTIONS, SET_STATUS, SET_VALIDATION_RESULT, UPDATE_OPTION_SELECTION} from "../actionTypes";
+import {SET_LOADING, SET_QUESTIONS, SET_STATUS, SET_VALIDATION_RESULT, UPDATE_OPTION_SELECTION} from "../actionTypes";
 
 const initialState = {
   status: STATUS.PRISTINE,
-  questions: []
+  questions: [],
+  loading: false
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_STATUS:
-      const newStatus = action.payload
+    case SET_LOADING:
       return {
         ...state,
-        status: newStatus
+        loading: action.payload
+      }
+    case SET_STATUS:
+      return {
+        ...state,
+        status: action.payload
       }
     case SET_QUESTIONS:
       const questions = action.payload

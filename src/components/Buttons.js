@@ -1,12 +1,12 @@
 import {Button, Col, Row} from "rivet-react";
 import * as React from "react";
-import _ from "lodash";
 import {submitResponse} from "../api/api";
 import {STATUS} from "../util";
-import {setStatus, setValidationResult, updateOptionSelection} from "../redux/actions";
+import {setLoading, setStatus, setValidationResult} from "../redux/actions";
 import {connect} from "react-redux";
+import {Loading} from "./Loading";
 
-const Buttons = ({question, answerIsValidated, gotoNextQuestion, gotoPreviousQuestion, validateResponse,
+const Buttons = ({question, validating, answerIsValidated, gotoNextQuestion, gotoPreviousQuestion, validateResponse,
                  isFirstQuestion, isLastQuestion}) => {
   return <Row padding={{top: "md"}}>
     {
@@ -15,27 +15,41 @@ const Buttons = ({question, answerIsValidated, gotoNextQuestion, gotoPreviousQue
         <Button
           type={"button"}
           onClick={gotoPreviousQuestion}
+          disabled={validating}
         >
           Previous
         </Button>
       </Col>
     }
     <Col md={isFirstQuestion ? 12 : 6} className={"align-content-right"}>
-      <Button
-        type={"button"}
-        onClick={answerIsValidated ? gotoNextQuestion : validateResponse}
-      >
-        {
-          answerIsValidated ? "Next" : "Submit"
-        }
-      </Button>
+      {
+        validating ?
+          <Loading />
+          :
+          <Button
+            type={"button"}
+            onClick={answerIsValidated ? gotoNextQuestion : validateResponse}
+          >
+            {
+              answerIsValidated ? "Next" : "Submit"
+            }
+          </Button>
+      }
     </Col>
   </Row>
+}
+
+const mapStateToProps = (state) => {
+  return {
+    validating: state.assessment.loading
+  }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     validateResponse: () => {
+      dispatch(setLoading(true))
+
       const question = ownProps.question
       submitResponse(question).then(response => {
         dispatch(setValidationResult(question.id, response))
@@ -43,9 +57,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         if (ownProps.isLastQuestion) {
           dispatch(setStatus(STATUS.FINISHED))
         }
+        dispatch(setLoading(false))
       })
     }
   }
 }
 
-export default connect(null, mapDispatchToProps)(Buttons)
+export default connect(mapStateToProps, mapDispatchToProps)(Buttons)

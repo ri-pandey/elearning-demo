@@ -1,4 +1,9 @@
-import {SET_QUESTIONS, SET_STATUS, SET_VALIDATION_RESULT, UPDATE_OPTION_SELECTION} from './actionTypes'
+import {SET_LOADING, SET_QUESTIONS, SET_STATUS, SET_VALIDATION_RESULT, UPDATE_OPTION_SELECTION} from './actionTypes'
+
+export const setLoading = (loading) => ({
+  type: SET_LOADING,
+  payload: loading
+})
 
 export const setStatus = (status) => ({
   type: SET_STATUS,
