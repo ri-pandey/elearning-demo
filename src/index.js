@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Assessment from './Assessment';
+import Assessment from './components/Assessment';
 
 const root = ReactDOM.createRoot(document.getElementById('main-content'));
 root.render(

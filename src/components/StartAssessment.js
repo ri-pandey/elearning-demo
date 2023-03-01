@@ -1,5 +1,5 @@
 import {Button, Panel} from "rivet-react";
-import {STATUS} from "./util";
+import {STATUS} from "../util";
 import * as React from "react";
 
 export const StartAssessment = ({setStatus}) => {
