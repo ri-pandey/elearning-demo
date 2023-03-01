@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {setQuestions, setStatus} from "../redux/actions";
 import {fetchQuestions} from "../api/api";
 
-const StartAssessment = ({beginAssessment, setStatus, fetchQuestions}) => {
+const StartAssessment = ({beginAssessment}) => {
   return <Panel>
     <p className={"margin-top-none"}>Here is some description of this Multiple Choice Assessment. Here is some
       description of this Multiple Choice Assessment. Here is some description of this Multiple Choice

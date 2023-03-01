@@ -7,9 +7,9 @@ export const SubmissionResult = ({question}) => {
       return;
     }
     const correctOptions = question.options.filter(e => question.correctOptions.includes(e.id))
-    return correctOptions.map((e, i) => (
+    return correctOptions.map((option, i) => (
         <React.Fragment key={"correct-option-" + i}>
-          <span className={"rvt-m-left-md"}>{"- " + e.text}</span>
+          <span className={"rvt-m-left-md"}>{"- " + option.text}</span>
           {i < correctOptions.length - 1 && <br/>}
         </React.Fragment>
       )

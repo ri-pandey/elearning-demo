@@ -5,10 +5,11 @@ import {STATUS} from "../util";
 import {submitResponse} from "../api/api";
 import {useState} from "react";
 import {SubmissionResult} from "./SubmissionResult";
-import {Options} from "./Options";
-import {Buttons} from "./Buttons";
+import Options from "./Options";
+import Buttons from "./Buttons";
+import {connect} from "react-redux";
 
-export const Question = ({questions, recordResponse, setStatus}) => {
+const Question = ({questions}) => {
   const [questionIndex, setQuestionIndex] = useState(0)
 
   const question = questions[questionIndex]
@@ -36,10 +37,8 @@ export const Question = ({questions, recordResponse, setStatus}) => {
       <p>{question.text}</p>
       <Panel variant={"light"}>
         <Options
-          questions={questions}
-          questionIndex={questionIndex}
+          question={question}
           answerIsValidated={answerIsValidated}
-          recordResponse={recordResponse}
         />
       </Panel>
       {
@@ -50,13 +49,22 @@ export const Question = ({questions, recordResponse, setStatus}) => {
       }
     </Panel>
     <Buttons
-      questions={questions}
-      questionIndex={questionIndex}
+      question={question}
       answerIsValidated={answerIsValidated}
       gotoNextQuestion={gotoNextQuestion}
       gotoPreviousQuestion={gotoPreviousQuestion}
-      recordResponse={recordResponse}
-      setStatus={setStatus}
+      isFirstQuestion={questionIndex === 0}
+      isLastQuestion={questionIndex === questions.length - 1}
     />
   </>
 }
+
+const mapStateToProps = (state) => {
+  return {
+    questions: state.assessment.questions
+  }
+}
+
+export default connect(mapStateToProps
+  // , mapDispatchToProps
+)(Question)
