@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 
 const Questions = ({questions}) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [noOptionsSelectedAlertVisible, setNoOptionsSelectedAlertVisible] = useState(false)
 
   const currentQuestion = questions[currentQuestionIndex]
   const answerIsValidated = currentQuestion.isAnsweredCorrectly || (currentQuestion.correctOptions && currentQuestion.correctOptions.length > 0)
@@ -36,6 +37,7 @@ const Questions = ({questions}) => {
         <Options
           question={currentQuestion}
           answerIsValidated={answerIsValidated}
+          setNoOptionsSelectedAlertVisible={setNoOptionsSelectedAlertVisible}
         />
       </Panel>
       {
@@ -44,14 +46,21 @@ const Questions = ({questions}) => {
           <ValidationResult question={currentQuestion}/>
         </div>
       }
+      {
+        noOptionsSelectedAlertVisible &&
+        <div className={"rvt-m-top-lg rvt-m-bottom-xxs"}>
+          <Alert variant={"info"}>Please make a choice before continuing</Alert>
+        </div>
+      }
     </Panel>
     <Buttons
       question={currentQuestion}
       answerIsValidated={answerIsValidated}
-      gotoNextQuestion={gotoNextQuestion}
-      gotoPreviousQuestion={gotoPreviousQuestion}
       isFirstQuestion={currentQuestionIndex === 0}
       isLastQuestion={currentQuestionIndex === questions.length - 1}
+      gotoNextQuestion={gotoNextQuestion}
+      gotoPreviousQuestion={gotoPreviousQuestion}
+      setNoOptionsSelectedAlertVisible={setNoOptionsSelectedAlertVisible}
     />
   </>
 }

@@ -3,9 +3,10 @@ import * as React from "react";
 import {updateOptionSelection} from "../redux/actions";
 import {connect} from "react-redux";
 
-const Options = ({question, updateOptionSelection, answerIsValidated}) => {
+const Options = ({question, answerIsValidated, updateOptionSelection, setNoOptionsSelectedAlertVisible}) => {
   const onSelectionChange = (e, optionId) => {
     updateOptionSelection(question.id, optionId, e.target.checked)
+    setNoOptionsSelectedAlertVisible(false)
   }
 
   return <fieldset>

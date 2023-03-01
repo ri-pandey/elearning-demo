@@ -6,15 +6,19 @@ import {setLoading, setStatus, setValidationResult} from "../redux/actions";
 import {connect} from "react-redux";
 import {LoadingButton} from "./LoadingButton";
 
-const Buttons = ({question, validating, answerIsValidated, gotoNextQuestion, gotoPreviousQuestion, validateResponse,
-                 isFirstQuestion, isLastQuestion, assessmentIsFinished, setStatus}) => {
+const Buttons = ({question, validating, answerIsValidated, isFirstQuestion, isLastQuestion,
+                   noOptionsSelected, assessmentIsFinished, gotoNextQuestion, gotoPreviousQuestion,
+                   validateResponse, setStatus, setNoOptionsSelectedAlertVisible}) => {
   return <Row padding={{top: "md"}}>
     {
       !isFirstQuestion &&
       <Col md={6}>
         <Button
           type={"button"}
-          onClick={gotoPreviousQuestion}
+          onClick={() => {
+            setNoOptionsSelectedAlertVisible(false)
+            gotoPreviousQuestion()
+          }}
           disabled={validating}
         >
           Previous
@@ -29,6 +33,10 @@ const Buttons = ({question, validating, answerIsValidated, gotoNextQuestion, got
           <Button
             type={"button"}
             onClick={() => {
+              if (noOptionsSelected) {
+                setNoOptionsSelectedAlertVisible(true)
+                return
+              }
               if (!answerIsValidated) {
                 validateResponse()
               } else if (!isLastQuestion) {
@@ -47,10 +55,14 @@ const Buttons = ({question, validating, answerIsValidated, gotoNextQuestion, got
   </Row>
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const assessment = state.assessment
+  const noOptionsSelected = ownProps.question.options.filter(option => option.selected).length === 0
+
   return {
-    validating: state.assessment.loading,
-    assessmentIsFinished: state.assessment.status === STATUS.FINISHED
+    validating: assessment.loading,
+    assessmentIsFinished: assessment.status === STATUS.FINISHED,
+    noOptionsSelected
   }
 }
 
