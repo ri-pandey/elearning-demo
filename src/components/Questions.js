@@ -1,7 +1,4 @@
-import {
-  InlineAlert,
-  Panel,
-} from "rivet-react";
+import { InlineAlert, Panel } from "rivet-react";
 import * as React from "react";
 import { useState } from "react";
 import { ValidationResult } from "./ValidationResult";
