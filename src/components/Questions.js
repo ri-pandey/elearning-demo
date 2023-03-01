@@ -1,8 +1,5 @@
 import {Alert, Button, Checkbox, Col, List, Panel, Row} from "rivet-react";
 import * as React from "react";
-import _ from "lodash"
-import {STATUS} from "../util";
-import {submitResponse} from "../api/api";
 import {useState} from "react";
 import {ValidationResult} from "./ValidationResult";
 import Options from "./Options";
@@ -43,7 +40,7 @@ const Questions = ({questions}) => {
       </Panel>
       {
         answerIsValidated &&
-        <div className={"rvt-m-top-lg"}>
+        <div className={"rvt-m-top-lg rvt-m-bottom-xxs"}>
           <ValidationResult question={currentQuestion}/>
         </div>
       }
@@ -65,6 +62,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps
-  // , mapDispatchToProps
-)(Questions)
+export default connect(mapStateToProps)(Questions)

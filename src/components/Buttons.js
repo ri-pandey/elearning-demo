@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import {LoadingButton} from "./LoadingButton";
 
 const Buttons = ({question, validating, answerIsValidated, gotoNextQuestion, gotoPreviousQuestion, validateResponse,
-                 isFirstQuestion, isLastQuestion}) => {
+                 isFirstQuestion, isLastQuestion, assessmentIsFinished, setStatus}) => {
   return <Row padding={{top: "md"}}>
     {
       !isFirstQuestion &&
@@ -28,10 +28,18 @@ const Buttons = ({question, validating, answerIsValidated, gotoNextQuestion, got
           :
           <Button
             type={"button"}
-            onClick={answerIsValidated ? gotoNextQuestion : validateResponse}
+            onClick={() => {
+              if (!answerIsValidated) {
+                validateResponse()
+              } else if (!isLastQuestion) {
+                gotoNextQuestion()
+              } else {
+                setStatus(STATUS.FINISHED)
+              }
+            }}
           >
             {
-              answerIsValidated ? "Next" : "Submit"
+              answerIsValidated ? (isLastQuestion ? "See score" : "Next") : "Submit"
             }
           </Button>
       }
@@ -41,7 +49,8 @@ const Buttons = ({question, validating, answerIsValidated, gotoNextQuestion, got
 
 const mapStateToProps = (state) => {
   return {
-    validating: state.assessment.loading
+    validating: state.assessment.loading,
+    assessmentIsFinished: state.assessment.status === STATUS.FINISHED
   }
 }
 
@@ -49,16 +58,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     validateResponse: () => {
       dispatch(setLoading(true))
-
       const question = ownProps.question
       submitResponse(question).then(response => {
         dispatch(setValidationResult(question.id, response))
       }).finally(() => {
-        if (ownProps.isLastQuestion) {
-          dispatch(setStatus(STATUS.FINISHED))
-        }
         dispatch(setLoading(false))
       })
+    },
+    setStatus: (status) => {
+      dispatch(setStatus(status))
     }
   }
 }
