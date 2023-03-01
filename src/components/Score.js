@@ -3,7 +3,11 @@ import {Alert, Panel} from "rivet-react";
 import {connect} from "react-redux";
 
 const Score = ({score}) => {
-  return <Panel><Alert variant={"info"} title={"Assessment Complete"}>You scored {score} in this assessment</Alert></Panel>
+  return <Panel>
+    <Alert variant={"info"} title={"Assessment Complete"}>
+      You scored {score} in this assessment
+    </Alert>
+  </Panel>
 }
 
 const mapStateToProps = (state) => {

@@ -1,7 +1,7 @@
 import {Alert} from "rivet-react";
 import * as React from "react";
 
-export const SubmissionResult = ({question}) => {
+export const ValidationResult = ({question}) => {
   const displayCorrectOptions = () => {
     if (!question.correctOptions) {
       return;

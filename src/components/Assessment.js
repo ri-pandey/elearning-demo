@@ -1,13 +1,10 @@
 import * as React from 'react'
-import {Button, Container} from "rivet-react";
-import {useState} from "react";
+import {Container} from "rivet-react";
 import {STATUS} from "../util";
-import {quizQuestions} from "../api/data";
 import Score from "./Score";
-import Question from "./Question";
+import Questions from "./Questions";
 import StartAssessment from "./StartAssessment";
 import {connect} from "react-redux";
-import {setStatus} from "../redux/actions";
 
 const Assessment = ({status}) => {
   return (
@@ -23,7 +20,7 @@ const Assessment = ({status}) => {
           }
           {
             status === STATUS.IN_PROGRESS &&
-            <Question />
+            <Questions />
           }
           {
             status === STATUS.FINISHED &&
@@ -40,4 +37,4 @@ const mapStateToProps = (state) => {
     status: state.assessment.status
   }
 }
-export default connect(mapStateToProps, null)(Assessment);
+export default connect(mapStateToProps)(Assessment);

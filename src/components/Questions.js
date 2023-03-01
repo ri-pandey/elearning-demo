@@ -4,26 +4,26 @@ import _ from "lodash"
 import {STATUS} from "../util";
 import {submitResponse} from "../api/api";
 import {useState} from "react";
-import {SubmissionResult} from "./SubmissionResult";
+import {ValidationResult} from "./ValidationResult";
 import Options from "./Options";
 import Buttons from "./Buttons";
 import {connect} from "react-redux";
 
-const Question = ({questions}) => {
-  const [questionIndex, setQuestionIndex] = useState(0)
+const Questions = ({questions}) => {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
 
-  const question = questions[questionIndex]
-  const answerIsValidated = question.isAnsweredCorrectly || (question.correctOptions && question.correctOptions.length > 0)
+  const currentQuestion = questions[currentQuestionIndex]
+  const answerIsValidated = currentQuestion.isAnsweredCorrectly || (currentQuestion.correctOptions && currentQuestion.correctOptions.length > 0)
 
   const gotoNextQuestion = () => {
-    if (questionIndex < questions.length - 1) {
-      setQuestionIndex(questionIndex + 1)
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1)
     }
   }
 
   const gotoPreviousQuestion = () => {
-    if (questionIndex > 0) {
-      setQuestionIndex(questionIndex - 1)
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1)
     }
   }
 
@@ -31,30 +31,30 @@ const Question = ({questions}) => {
     <Panel>
       <div className="rvt-text-bold">
         <p className={"margin-top-none"}>
-          Question {questionIndex + 1}
+          Question {currentQuestionIndex + 1}
         </p>
       </div>
-      <p>{question.text}</p>
+      <p>{currentQuestion.text}</p>
       <Panel variant={"light"}>
         <Options
-          question={question}
+          question={currentQuestion}
           answerIsValidated={answerIsValidated}
         />
       </Panel>
       {
         answerIsValidated &&
         <div className={"rvt-m-top-lg"}>
-          <SubmissionResult question={question}/>
+          <ValidationResult question={currentQuestion}/>
         </div>
       }
     </Panel>
     <Buttons
-      question={question}
+      question={currentQuestion}
       answerIsValidated={answerIsValidated}
       gotoNextQuestion={gotoNextQuestion}
       gotoPreviousQuestion={gotoPreviousQuestion}
-      isFirstQuestion={questionIndex === 0}
-      isLastQuestion={questionIndex === questions.length - 1}
+      isFirstQuestion={currentQuestionIndex === 0}
+      isLastQuestion={currentQuestionIndex === questions.length - 1}
     />
   </>
 }
@@ -67,4 +67,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps
   // , mapDispatchToProps
-)(Question)
+)(Questions)
