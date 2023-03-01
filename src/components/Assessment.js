@@ -5,22 +5,21 @@ import {STATUS} from "../util";
 import {quizQuestions} from "../api/data";
 import {Score} from "./Score";
 import {Question} from "./Question";
-import {StartAssessment} from "./StartAssessment";
+import StartAssessment from "./StartAssessment";
 import {connect} from "react-redux";
 import {setStatus} from "../redux/actions";
 
-const Assessment = ({currentStatus, setCurrentStatus}) => {
-  const [status, setStatus] = useState(STATUS.PRISTINE)
+const Assessment = ({status, setCurrentStatus}) => {
   const [questions, recordResponse] = useState(quizQuestions)
 
   return (
     <div>
       <Container typescale={26} padding={"xxl"}>
 
-        <div className={"rvt-m-bottom-sm"}>
-          <h1 className="rvt-ts-29 rvt-lh-title">{currentStatus}</h1>
-          <Button onClick={setCurrentStatus}>test</Button>
-        </div>
+        {/*<div className={"rvt-m-bottom-sm"}>*/}
+        {/*  <h1 className="rvt-ts-29 rvt-lh-title">{status}</h1>*/}
+        {/*  <Button onClick={setCurrentStatus}>test</Button>*/}
+        {/*</div>*/}
 
         <div className={"rvt-m-bottom-sm"}>
           <h1 className="rvt-ts-29 rvt-lh-title">Multiple Choice Assessment</h1>
@@ -28,14 +27,13 @@ const Assessment = ({currentStatus, setCurrentStatus}) => {
         <Container typescale={18} className={"rvt-p-all-remove"}>
           {
             status === STATUS.PRISTINE &&
-            <StartAssessment setStatus={setStatus}/>
+            <StartAssessment />
           }
           {
             status === STATUS.IN_PROGRESS &&
             <Question
               questions={questions}
               recordResponse={recordResponse}
-              setStatus={setStatus}
             />
           }
           {
@@ -50,16 +48,16 @@ const Assessment = ({currentStatus, setCurrentStatus}) => {
 
 const mapStateToProps = (state) => {
   return {
-    currentStatus: state.assessment.status
+    status: state.assessment.status
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setCurrentStatus: (status) => {
-      dispatch(setStatus("ho ho ho"))
-    }
-  }
-}
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setCurrentStatus: (status) => {
+//       dispatch(setStatus("ho ho ho"))
+//     }
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Assessment);
+export default connect(mapStateToProps, null)(Assessment);
