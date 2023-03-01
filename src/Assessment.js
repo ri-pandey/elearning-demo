@@ -6,7 +6,7 @@ import {quizQuestions} from "./data/data";
 import {Score} from "./Score";
 import {Question} from "./Question";
 
-const App = ({}) => {
+const Assessment = ({}) => {
   const [status, setStatus] = useState(STATUS.PRISTINE)
   const [questions, recordResponse] = useState(quizQuestions)
 
@@ -50,4 +50,4 @@ const App = ({}) => {
   );
 }
 
-export default App;
+export default Assessment;
