@@ -4,7 +4,7 @@ import {submitResponse} from "../api/api";
 import {STATUS} from "../util";
 import {setLoading, setStatus, setValidationResult} from "../redux/actions";
 import {connect} from "react-redux";
-import {Loading} from "./Loading";
+import {LoadingButton} from "./LoadingButton";
 
 const Buttons = ({question, validating, answerIsValidated, gotoNextQuestion, gotoPreviousQuestion, validateResponse,
                  isFirstQuestion, isLastQuestion}) => {
@@ -24,7 +24,7 @@ const Buttons = ({question, validating, answerIsValidated, gotoNextQuestion, got
     <Col md={isFirstQuestion ? 12 : 6} className={"align-content-right"}>
       {
         validating ?
-          <Loading />
+          <LoadingButton />
           :
           <Button
             type={"button"}

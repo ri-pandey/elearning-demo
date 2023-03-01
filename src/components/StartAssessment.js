@@ -4,7 +4,7 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {setLoading, setQuestions, setStatus} from "../redux/actions";
 import {fetchQuestions} from "../api/api";
-import {Loading} from "./Loading";
+import {LoadingButton} from "./LoadingButton";
 
 const StartAssessment = ({beginAssessment, loading}) => {
   return <Panel>
@@ -13,7 +13,7 @@ const StartAssessment = ({beginAssessment, loading}) => {
       Assessment. Here is some description of this Multiple Choice Assessment.</p>
     {
       loading ?
-        <Loading/>
+        <LoadingButton/>
         :
         <Button
           type={"button"}
