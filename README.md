@@ -6,6 +6,8 @@ Clone the repository:
 
 ### `git clone https://github.com/ri-pandey/elearning-demo.git`
 
+### `cd elearning-demo`
+
 Install packages:
 
 ### `npm install`
