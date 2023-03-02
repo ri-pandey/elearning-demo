@@ -63,7 +63,7 @@ export const QUESTIONS = [
       {
         id: 32,
         questionId: 3,
-        text: "Text for Option 3.2",
+        text: "Text for Option 3.2 (correct)",
       },
       {
         id: 33,
@@ -137,8 +137,8 @@ export const OPTIONS = [
   {
     id: 32,
     questionId: 3,
-    text: "Text for Option 3.2",
-    correct: false,
+    text: "Text for Option 3.2 (correct)",
+    correct: true,
   },
   {
     id: 33,
