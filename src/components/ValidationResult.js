@@ -1,4 +1,4 @@
-import { Alert, Badge, InlineAlert } from "rivet-react";
+import { Alert, Badge } from "rivet-react";
 import * as React from "react";
 
 const CorrectOptions = ({ question }) => {
