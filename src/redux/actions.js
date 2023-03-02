@@ -1,9 +1,9 @@
 import {
   SET_LOADING,
-  FETCH_QUESTIONS,
+  SET_QUESTIONS,
   SET_STATUS,
-  VALIDATION_RESULT,
-  UPDATE_OPTION_SELECTION,
+  SET_RESULT,
+  SET_OPTION_SELECTION,
 } from "./actionTypes";
 
 export const setLoading = (loading) => ({
@@ -16,13 +16,13 @@ export const setStatus = (status) => ({
   payload: status,
 });
 
-export const fetchQuestions = (questions) => ({
-  type: FETCH_QUESTIONS,
+export const setQuestions = (questions) => ({
+  type: SET_QUESTIONS,
   payload: questions,
 });
 
-export const updateOptionSelection = (questionId, optionId, selected) => ({
-  type: UPDATE_OPTION_SELECTION,
+export const setOptionSelection = (questionId, optionId, selected) => ({
+  type: SET_OPTION_SELECTION,
   payload: {
     questionId,
     optionId,
@@ -30,8 +30,8 @@ export const updateOptionSelection = (questionId, optionId, selected) => ({
   },
 });
 
-export const validateResult = (questionId, result) => ({
-  type: VALIDATION_RESULT,
+export const setResult = (questionId, result) => ({
+  type: SET_RESULT,
   payload: {
     questionId,
     result,

@@ -1,16 +1,16 @@
 import { Checkbox, List } from "rivet-react";
 import * as React from "react";
-import { updateOptionSelection } from "../redux/actions";
+import { setOptionSelection } from "../redux/actions";
 import { connect } from "react-redux";
 
 const Options = ({
   question,
   answerIsValidated,
-  updateOptionSelection,
+  setOptionSelection,
   setNoOptionsSelectedAlertVisible,
 }) => {
   const onSelectionChange = (e, optionId) => {
-    updateOptionSelection(question.id, optionId, e.target.checked);
+    setOptionSelection(question.id, optionId, e.target.checked);
     setNoOptionsSelectedAlertVisible(false);
   };
 
@@ -35,8 +35,8 @@ const Options = ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateOptionSelection: (questionId, optionId, selected) => {
-      dispatch(updateOptionSelection(questionId, optionId, selected));
+    setOptionSelection: (questionId, optionId, selected) => {
+      dispatch(setOptionSelection(questionId, optionId, selected));
     },
   };
 };

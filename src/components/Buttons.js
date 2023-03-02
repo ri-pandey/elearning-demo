@@ -2,7 +2,7 @@ import { Button, Col, Row } from "rivet-react";
 import * as React from "react";
 import { submitResponse } from "../api/api";
 import { STATUS } from "../util";
-import { setLoading, setStatus, validateResult } from "../redux/actions";
+import { setLoading, setStatus, setResult } from "../redux/actions";
 import { connect } from "react-redux";
 import { LoadingButton } from "./LoadingButton";
 
@@ -87,7 +87,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const question = ownProps.question;
       submitResponse(question)
         .then((response) => {
-          dispatch(validateResult(question.id, response));
+          dispatch(setResult(question.id, response));
         })
         .finally(() => {
           dispatch(setLoading(false));
