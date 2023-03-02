@@ -2,8 +2,8 @@ import { Button, Panel } from "rivet-react";
 import { STATUS } from "../util";
 import * as React from "react";
 import { connect } from "react-redux";
-import { setLoading, setQuestions, setStatus } from "../redux/actions";
-import { fetchQuestions } from "../api/api";
+import { setLoading, fetchQuestions, setStatus } from "../redux/actions";
+import { retrieveQuestions } from "../api/api";
 import { LoadingButton } from "./LoadingButton";
 
 const StartAssessment = ({ beginAssessment, loading }) => {
@@ -39,8 +39,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     beginAssessment: () => {
       dispatch(setLoading(true));
-      fetchQuestions().then((questions) => {
-        dispatch(setQuestions(questions));
+      retrieveQuestions().then((questions) => {
+        dispatch(fetchQuestions(questions));
         dispatch(setStatus(STATUS.IN_PROGRESS));
         dispatch(setLoading(false));
       });

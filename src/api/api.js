@@ -1,7 +1,7 @@
 import { QUESTIONS, OPTIONS } from "./data";
 import { isSelectionCorrect } from "../util";
 
-export const fetchQuestions = () => {
+export const retrieveQuestions = () => {
   return new Promise((resolve) => {
     setTimeout(() => resolve(QUESTIONS), 1000);
   });

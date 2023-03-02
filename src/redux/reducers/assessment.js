@@ -2,9 +2,9 @@ import _ from "lodash";
 import { STATUS } from "../../util";
 import {
   SET_LOADING,
-  SET_QUESTIONS,
+  FETCH_QUESTIONS,
   SET_STATUS,
-  SET_VALIDATION_RESULT,
+  VALIDATION_RESULT,
   UPDATE_OPTION_SELECTION,
 } from "../actionTypes";
 
@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
         ...state,
         status: action.payload,
       };
-    case SET_QUESTIONS:
+    case FETCH_QUESTIONS:
       const questions = action.payload;
       return {
         ...state,
@@ -42,7 +42,7 @@ export default (state = initialState, action) => {
         ...state,
         questions: questionsClone,
       };
-    case SET_VALIDATION_RESULT:
+    case VALIDATION_RESULT:
       var { questionId, result } = action.payload;
       var questionsClone = _.cloneDeep(state.questions);
       var question = questionsClone.find((e) => e.id === questionId);
