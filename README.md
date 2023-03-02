@@ -13,4 +13,4 @@ Install packages:
 
 Start project:
 
-`npm test`
+`npm start`
