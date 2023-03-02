@@ -2,12 +2,10 @@ import { Alert, Badge, InlineAlert } from "rivet-react";
 import * as React from "react";
 
 const CorrectOptions = ({ question }) => {
-  if (!question.correctOptions) {
+  const correctOptions = question.correctOptions;
+  if (!correctOptions) {
     return;
   }
-  const correctOptions = question.options.filter((option) =>
-    question.correctOptions.includes(option.id)
-  );
   return correctOptions.map((option, i) => (
     <React.Fragment key={"correct-option-" + i}>
       <span className={"rvt-m-left-md"}>{"- " + option.text}</span>

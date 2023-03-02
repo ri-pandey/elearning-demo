@@ -4,9 +4,15 @@ export const STATUS = {
   FINISHED: 2,
 };
 
-export const arraysAreEqual = (arr1, arr2) => {
-  if (arr1 === null || arr2 === null || arr1.length !== arr2.length) {
+export const isSelectionCorrect = (selectedOptions, correctOptions) => {
+  if (
+    selectedOptions === null ||
+    correctOptions === null ||
+    selectedOptions.length !== correctOptions.length
+  ) {
     return false;
   }
-  return arr1.every((e, i) => e === arr2[i]);
+  return selectedOptions.every(
+    (option, i) => option.id === correctOptions[i].id
+  );
 };
