@@ -3,7 +3,7 @@ import { STATUS } from "../util";
 import * as React from "react";
 import { connect } from "react-redux";
 import { setLoading, setQuestions, setStatus } from "../redux/actions";
-import { retrieveQuestions } from "../api/api";
+import { fetchQuestions } from "../api/api";
 import { LoadingButton } from "./LoadingButton";
 
 const StartAssessment = ({ beginAssessment, loading }) => {
@@ -39,7 +39,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     beginAssessment: () => {
       dispatch(setLoading(true));
-      retrieveQuestions().then((questions) => {
+      fetchQuestions().then((questions) => {
         dispatch(setQuestions(questions));
         dispatch(setStatus(STATUS.IN_PROGRESS));
         dispatch(setLoading(false));
